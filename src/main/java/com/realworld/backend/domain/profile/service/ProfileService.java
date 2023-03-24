@@ -4,7 +4,7 @@ import com.realworld.backend.domain.profile.dto.ProfileDto;
 import com.realworld.backend.security.AuthUserDetails;
 
 public interface ProfileService {
-    ProfileDto getProfile(final String username, final AuthUserDetails authUserDetails);
+    ProfileDto getProfile(final String name, final AuthUserDetails authUserDetails);
 
     ProfileDto followUser(final String name, final AuthUserDetails authUserDetails);
 
