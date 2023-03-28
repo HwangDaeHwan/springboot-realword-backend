@@ -37,9 +37,10 @@ public class ArticleDto {
 	
 	@Getter
 	@Setter
+	@Builder
 	@NoArgsConstructor
 	@AllArgsConstructor
-	public static class SinagleArticle<T> {
+	public static class SingleArticle<T> {
 		private T article;
 	}
 	

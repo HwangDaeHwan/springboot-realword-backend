@@ -12,42 +12,43 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Getter
-@Builder
 @AllArgsConstructor
+@Builder
 @JsonTypeName("user")
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.WRAPPER_OBJECT)
 public class UserDto {
-	
-	private String email;
-	private String token;
-	private String username;
-	private String bio;
-	private String image;
-	
-	@Getter
-	@Builder
-	@AllArgsConstructor
-	@JsonTypeName("user")
-	@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.WRAPPER_OBJECT)
-	public static class Registration {
-		
-		@NotNull
-		@Pattern(regexp = "[\\w\\d]{1,30}", message = "string contains alphabet or digit with length 1 to 30")
-		private String username;
-		
-		@NotNull
-		@Email
-		private String email;
-		
-		@NotBlank
-		@Size(min = 8, max = 32, message = "password length betwwen 8 and 30")
-		private String password;
-	}
-	
+    private String email;
+    private String token;
+    private String username;
+    private String bio;
+    private String image;
+
     @Getter
     @AllArgsConstructor
+    @NoArgsConstructor
+    @Builder
+    @JsonTypeName("user")
+    @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.WRAPPER_OBJECT)
+    public static class Registration {
+        @NotNull
+        @Pattern(regexp = "[\\w\\d]{1,30}", message = "string contains alphabet or digit with length 1 to 30")
+        private String username;
+
+        @NotNull
+        @Email
+        private String email;
+
+        @NotBlank
+        @Size(min = 8, max = 32)
+        private String password;
+    }
+
+    @Getter
+    @AllArgsConstructor
+    @NoArgsConstructor
     @Builder
     @JsonTypeName("user")
     @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.WRAPPER_OBJECT)
@@ -63,6 +64,7 @@ public class UserDto {
 
     @Getter
     @AllArgsConstructor
+    @NoArgsConstructor
     @Builder
     @JsonTypeName("user")
     @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.WRAPPER_OBJECT)
@@ -73,5 +75,6 @@ public class UserDto {
         private String bio;
         private String image;
         private String password;
-    }	
+    }
+
 }

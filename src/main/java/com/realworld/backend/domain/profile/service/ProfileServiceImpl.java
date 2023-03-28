@@ -33,7 +33,7 @@ public class ProfileServiceImpl implements ProfileService {
 	public ProfileDto getProfile(String name, AuthUserDetails authUserDetails) {
 		UserEntity user = userRepository.findByUsername(name)
 				.orElseThrow(() -> new AppException(Error.USER_NOT_FOUND));
-		Boolean following = followRepository.findByFolloweeIdAndFollwerId(user.getId(), 
+		Boolean following = followRepository.findByFolloweeIdAndFollowerId(user.getId(), 
 				authUserDetails.getId()).isPresent();
 		
 		return convertToProfile(user, following);
@@ -45,7 +45,7 @@ public class ProfileServiceImpl implements ProfileService {
 		UserEntity followee = userRepository.findByUsername(name).orElseThrow(() -> new AppException(Error.USER_NOT_FOUND));
 		UserEntity follower = UserEntity.builder().id(authUserDetails.getId()).build();
 		
-		followRepository.findByFolloweeIdAndFollwerId(followee.getId(), follower.getId())
+		followRepository.findByFolloweeIdAndFollowerId(followee.getId(), follower.getId())
 					.ifPresent(follow -> {throw new AppException(Error.ALREADY_FOLLOWED_USER);});
 		
 		FollowEntity follow = FollowEntity.builder().followee(followee).follower(follower).build();
@@ -60,7 +60,7 @@ public class ProfileServiceImpl implements ProfileService {
 		UserEntity followee = userRepository.findByUsername(name).orElseThrow(() -> new AppException(Error.USER_NOT_FOUND));
 		UserEntity follower = UserEntity.builder().id(authUserDetails.getId()).build();
 		
-		FollowEntity follow = followRepository.findByFolloweeIdAndFollwerId(followee.getId(), follower.getId())
+		FollowEntity follow = followRepository.findByFolloweeIdAndFollowerId(followee.getId(), follower.getId())
 				.orElseThrow(() ->  new AppException(Error.FOLLOW_NOT_FOUND));
 		followRepository.delete(follow);
 		
@@ -70,7 +70,7 @@ public class ProfileServiceImpl implements ProfileService {
 	@Override
 	public ProfileDto getProfileByUserId(Long userId, AuthUserDetails authUserDetails) {
 		UserEntity user = userRepository.findById(userId).orElseThrow(() -> new AppException(Error.USER_NOT_FOUND));
-		Boolean following = followRepository.findByFolloweeIdAndFollwerId(user.getId(), authUserDetails.getId()).isPresent();
+		Boolean following = followRepository.findByFolloweeIdAndFollowerId(user.getId(), authUserDetails.getId()).isPresent();
 		
 		return convertToProfile(user, following);
 	}

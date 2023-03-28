@@ -39,28 +39,28 @@ public class ArticleServiceImpl implements ArticleService {
     private final ProfileService profileService;
 	
     private ArticleDto convertEntityToDto(ArticleEntity entity, Boolean favorited, Long favoritesCount, AuthUserDetails authUserDetails) {
-    	ProfileDto author = profileService.getProfileByUserId(entity.getAuthor().getId(), authUserDetails);
-    	return ArticleDto.builder()
-    			.slug(entity.getSlug())
-    			.title(entity.getTitle())
-    			.description(entity.getDescription())
-    			.body(entity.getBody())
-    			.author(author)
-    			.createdAt(entity.getCreatedAt())
-    			.updatedAt(entity.getUpdatedAt())
-    			.favorited(favorited)
-    			.favoritesCount(favoritesCount)
-    			.tagList(entity.getTagList().stream().map(ArticleTagRelationEntity::getTag).collect(Collectors.toList()))
-    			.build();
+        ProfileDto author = profileService.getProfileByUserId(entity.getAuthor().getId(), authUserDetails);
+        return ArticleDto.builder()
+                .slug(entity.getSlug())
+                .title(entity.getTitle())
+                .description(entity.getDescription())
+                .body(entity.getBody())
+                .author(author)
+                .createdAt(entity.getCreatedAt())
+                .updatedAt(entity.getUpdatedAt())
+                .favorited(favorited)
+                .favoritesCount(favoritesCount)
+                .tagList(entity.getTagList().stream().map(ArticleTagRelationEntity::getTag).collect(Collectors.toList()))
+                .build();
     }
     
     private List<ArticleDto> convertToArticleList(List<ArticleEntity> articleEntities, AuthUserDetails authUserDetails) {
-    	return articleEntities.stream().map(entity -> {
-    		List<FavoriteEntity> favorites = entity.getFavoriteList();
-    		Boolean favorited = favorites.stream().anyMatch(favoriteEntity -> favoriteEntity.getUser().getId().equals(authUserDetails.getId()));
-    		int favoriteCount = favorites.size();
-    		return convertEntityToDto(entity, favorited, (long) favoriteCount, authUserDetails);
-    	}).collect(Collectors.toList());
+        return articleEntities.stream().map(entity -> {
+            List<FavoriteEntity> favorites = entity.getFavoriteList();
+            Boolean favorited = favorites.stream().anyMatch(favoriteEntity -> favoriteEntity.getUser().getId().equals(authUserDetails.getId()));
+            int favoriteCount = favorites.size();
+            return convertEntityToDto(entity, favorited, (long) favoriteCount, authUserDetails);
+        }).collect(Collectors.toList());
     }
     
     @Transactional

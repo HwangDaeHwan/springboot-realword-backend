@@ -11,9 +11,9 @@ import com.realworld.backend.domain.profile.entity.FollowEntity;
 @Repository
 public interface FollowRepository extends JpaRepository<FollowEntity, Long> {
 
-	Optional<FollowEntity> findByFolloweeIdAndFollwerId(Long followeeId, Long follwerId);
-	
-	List<FollowEntity> findByFollowerId(Long id);
-	
-	List<FollowEntity> findByFollowerIdAndFolloweeIdIn(Long id, List<Long> authorIds);
+    Optional<FollowEntity> findByFolloweeIdAndFollowerId(Long followeeId, Long followerId);
+
+    List<FollowEntity> findByFollowerId(Long id);
+
+    List<FollowEntity> findByFollowerIdAndFolloweeIdIn(Long id, List<Long> authorIds);
 }
